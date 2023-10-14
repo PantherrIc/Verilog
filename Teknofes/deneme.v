@@ -1,5 +1,6 @@
 `timescale 1ns / 1ps
-
+ehehehhhe
+HOROZ20 BURADAYDI AYIKS
 module Adder32Bit(
 input [31:0]num1,
 input [31:0]num2,
