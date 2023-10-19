@@ -1,0 +1,51 @@
+`timescale 1ns / 1ps
+
+module testbench;
+    reg [31:0] d;
+    wire [31:0] q;
+    reg clk;
+    reg n_reset;
+
+    // Verilog modülünü çağır
+    regis uut (
+        .q(q),
+        .d(d),
+        .clk(clk),
+        .n_reset(n_reset)
+    );
+
+    // Clock sinyali oluştur
+    always begin
+        #5 clk = ~clk;
+    end
+
+    // Test işlemi
+    initial begin
+        // Başlangıç değerleri
+        clk = 0;
+        n_reset = 1;
+        d = 32'b01010101010101010101010101010101;
+        // Reseti aktif et
+        // Birkaç saat döngüsü bekle
+        #23
+         d = 32'h0912345A;
+         #10
+        // Reseti pasif et
+        n_reset = 0;
+
+        // D sinyalini ayarla
+        
+        // Birkaç saat döngüsü bekle
+        #10
+        n_reset = 1;
+        #10
+        // Sonuçları kontrol et
+        if (q === d)
+            $display("Test başarılı: q = %h, d = %h", q, d);
+        else
+            $display("Test başarısız: q = %h, d = %h", q, d);
+
+        // Simülasyonu sonlandır
+        $finish;
+    end
+endmodule
